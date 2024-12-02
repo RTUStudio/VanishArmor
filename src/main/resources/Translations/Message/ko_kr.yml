@@ -1,0 +1,6 @@
+enable: "<white>갑옷 은폐가 <green>활성화</green>되었습니다</white>"
+disable: "<white>갑옷 은폐가 <red>비활성화</red>되었습니다</white>"
+
+placeholder:
+  active: "활성화"
+  inactive: "비활성화"

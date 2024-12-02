@@ -1,0 +1,6 @@
+enable: "<white>Armor vanish has been <green>enabled</green></white>"
+disable: "<white>Armor vanish has been <red>disabled</red></white>"
+
+placeholder:
+  active: "Active"
+  inactive: "Inactive"

@@ -1,0 +1,116 @@
+plugins {
+    id "java"
+    id "io.freefair.lombok" version "8.10"
+    id "com.gradleup.shadow" version "8.3.1"
+    id "xyz.jpenilla.run-paper" version "2.3.1"
+}
+
+group = "com.github.ipecter"
+version = project.plugin_version
+
+ConfigurableFileTree libs = fileTree(dir: "libs", include: ["*.jar"])
+
+runServer {
+    minecraftVersion(bukkit_version)
+}
+
+repositories {
+    mavenCentral()
+    maven {
+        name = "spigotmc-repo"
+        url = "https://hub.spigotmc.org/nexus/content/repositories/snapshots/"
+    }
+    maven {
+        name = "sonatype"
+        url = "https://oss.sonatype.org/content/groups/public/"
+    }
+    maven {
+        url = "https://repo.extendedclip.com/content/repositories/placeholderapi/"
+    }
+    maven {
+        url = "https://mvnrepository.com/artifact/org.projectlombok/lombok"
+    }
+    maven {
+        url = "https://repo.oraxen.com/releases"
+    }
+    maven {
+        url = "https://jitpack.io"
+    }
+    maven {
+        url = "https://repo.dmulloy2.net/repository/public/"
+    }
+    maven {
+        url = "https://papermc.io/repo/repository/maven-public/"
+    }
+}
+
+
+
+dependencies {
+    // 플러그인 API
+    //if (paper_plugin) compileOnly "io.papermc.paper:paper-api:${api_version}-R0.1-SNAPSHOT"
+    /*else*/ compileOnly "org.spigotmc:spigot-api:${api_version}-R0.1-SNAPSHOT"
+
+    // 내부 종속성
+    compileOnly "net.kyori:adventure-platform-bukkit:4.3.2"
+    compileOnly "net.kyori:adventure-text-minimessage:4.14.0"
+    compileOnly "com.google.code.gson:gson:2.10.1"
+    compileOnly "com.google.guava:guava:33.0.0-jre"
+    compileOnly "org.apache.commons:commons-lang3:3.14.0"
+    compileOnly "com.github.Carleslc.Simple-YAML:Simple-Yaml:1.8.4"
+
+    // 외부 플러그인
+    compileOnly "me.clip:placeholderapi:2.11.6"
+    compileOnly "com.github.MilkBowl:VaultAPI:1.7.1"
+    compileOnly "com.comphenix.protocol:ProtocolLib:5.1.0"
+    compileOnly "net.luckperms:api:5.4"
+    compileOnly "io.th0rgal:oraxen:1.168.0"
+    compileOnly "com.github.LoneDev6:API-ItemsAdder:3.6.2-beta-r3-b"
+
+    // Gradle 플러그인
+    compileOnly "org.projectlombok:lombok:1.18.32"
+    annotationProcessor "org.projectlombok:lombok:1.18.32"
+
+    // Jar 종속성
+    compileOnly libs
+}
+
+jar {
+    finalizedBy shadowJar
+}
+
+shadowJar {
+    setArchiveClassifier("")
+    doLast {
+        copy {
+            from archiveFile.get().asFile into file("$projectDir/builds")
+        }
+    }
+}
+
+def targetJavaVersion = java_version as Integer
+
+java {
+    def javaVersion = JavaVersion.toVersion(targetJavaVersion)
+    sourceCompatibility = javaVersion
+    targetCompatibility = javaVersion
+    if (JavaVersion.current() < javaVersion) {
+        toolchain.languageVersion = JavaLanguageVersion.of(targetJavaVersion)
+    }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.release = targetJavaVersion
+}
+
+processResources {
+    def split = api_version.split("\\.");
+    def plugin_api_version = split[0]  + "." + split[1];
+    def props =
+            [version: version, name: project.name, main: plugin_main, api_version: plugin_api_version, author: plugin_author]
+    inputs.properties props
+    filteringCharset "UTF-8"
+    filesMatching("plugin.yml") {
+        expand props
+    }
+}
