@@ -1,5 +1,6 @@
 package com.github.ipecter.rtustudio.varmor.config;
 
+import com.github.ipecter.rtustudio.varmor.VanishArmor;
 import kr.rtuserver.framework.bukkit.api.RSPlugin;
 import kr.rtuserver.framework.bukkit.api.config.RSConfiguration;
 import lombok.Getter;
@@ -7,13 +8,13 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class VanishConfig extends RSConfiguration {
+public class VanishConfig extends RSConfiguration<VanishArmor> {
 
     private boolean hideSelf = true;
     private boolean hideOther = false;
     private boolean hideFromOther = true;
 
-    public VanishConfig(RSPlugin plugin) {
+    public VanishConfig(VanishArmor plugin) {
         super(plugin, "Vanish.yml", 1);
         setup(this);
     }

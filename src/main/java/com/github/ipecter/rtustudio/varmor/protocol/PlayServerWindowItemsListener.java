@@ -16,7 +16,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.List;
 
-public class PlayServerWindowItemsListener extends RSPacketListener {
+public class PlayServerWindowItemsListener extends RSPacketListener<VanishArmor> {
 
     private final ToggleManager manager;
 

@@ -9,7 +9,7 @@ import kr.rtuserver.framework.bukkit.api.utility.player.PlayerChat;
 import kr.rtuserver.framework.bukkit.api.utility.scheduler.CraftScheduler;
 import org.bukkit.entity.Player;
 
-public class Command extends RSCommand {
+public class Command extends RSCommand<VanishArmor> {
 
     private final VanishConfig config;
     private final ToggleManager manager;

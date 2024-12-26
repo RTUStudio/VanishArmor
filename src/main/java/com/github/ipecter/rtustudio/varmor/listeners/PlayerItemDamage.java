@@ -14,7 +14,7 @@ import org.bukkit.inventory.ItemStack;
 
 import java.util.List;
 
-public class PlayerItemDamage extends RSListener {
+public class PlayerItemDamage extends RSListener<VanishArmor> {
 
     private final ToggleManager manager;
 

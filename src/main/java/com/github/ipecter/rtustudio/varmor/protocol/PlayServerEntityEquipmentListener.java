@@ -15,7 +15,7 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
-public class PlayServerEntityEquipmentListener extends RSPacketListener {
+public class PlayServerEntityEquipmentListener extends RSPacketListener<VanishArmor> {
 
     private final VanishConfig config;
     private final ToggleManager manager;

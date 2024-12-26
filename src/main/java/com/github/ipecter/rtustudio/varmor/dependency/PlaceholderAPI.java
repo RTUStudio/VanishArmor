@@ -7,7 +7,7 @@ import com.github.ipecter.rtustudio.varmor.manager.ToggleManager;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 
-public class PlaceholderAPI extends RSPlaceholder {
+public class PlaceholderAPI extends RSPlaceholder<VanishArmor> {
 
     private final ToggleManager manager;
     private final TranslationConfiguration message;

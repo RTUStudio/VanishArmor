@@ -7,7 +7,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
-public class PlayerJoinQuit extends RSListener {
+public class PlayerJoinQuit extends RSListener<VanishArmor> {
 
     private final ToggleManager manager;
 

@@ -16,7 +16,7 @@ import org.bukkit.inventory.ItemStack;
 
 import java.util.List;
 
-public class PlayClientWindowClickListener extends RSPacketListener {
+public class PlayClientWindowClickListener extends RSPacketListener<VanishArmor> {
 
     private final ToggleManager manager;
 
