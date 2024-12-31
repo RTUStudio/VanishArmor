@@ -46,6 +46,7 @@ public class Command extends RSCommand<VanishArmor> {
             if (config.isHideOther()) {
                 ProtocolManager pm = ProtocolLibrary.getProtocolManager();
                 for (Player p : Bukkit.getOnlinePlayers()) {
+                    if (p.getUniqueId() == player.getUniqueId()) continue;
                     WrapperPlayServerEntityEquipment packet = new WrapperPlayServerEntityEquipment();
                     packet.setEntityID(p.getEntityId());
                     packet.setSlotStackPair(EnumWrappers.ItemSlot.HEAD, empty);
@@ -58,6 +59,7 @@ public class Command extends RSCommand<VanishArmor> {
             if (config.isHideFromOther()) {
                 ProtocolManager pm = ProtocolLibrary.getProtocolManager();
                 for (Player p : Bukkit.getOnlinePlayers()) {
+                    if (p.getUniqueId() == player.getUniqueId()) continue;
                     WrapperPlayServerEntityEquipment packet = new WrapperPlayServerEntityEquipment();
                     packet.setEntityID(player.getEntityId());
                     packet.setSlotStackPair(EnumWrappers.ItemSlot.HEAD, empty);
