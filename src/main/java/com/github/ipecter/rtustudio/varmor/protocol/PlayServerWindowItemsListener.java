@@ -5,6 +5,7 @@ import com.comphenix.protocol.events.ListenerPriority;
 import com.comphenix.protocol.events.PacketContainer;
 import com.comphenix.protocol.events.PacketEvent;
 import com.github.ipecter.rtustudio.varmor.VanishArmor;
+import com.github.ipecter.rtustudio.varmor.config.VanishConfig;
 import com.github.ipecter.rtustudio.varmor.manager.ToggleManager;
 import com.github.ipecter.rtustudio.varmor.protocol.wrapper.WrapperPlayServerWindowItems;
 import kr.rtuserver.framework.bukkit.api.dependencies.RSPacketListener;
@@ -18,6 +19,7 @@ import java.util.List;
 
 public class PlayServerWindowItemsListener extends RSPacketListener<VanishArmor> {
 
+    private final VanishConfig config;
     private final ToggleManager manager;
 
     public PlayServerWindowItemsListener(VanishArmor plugin) {
@@ -25,6 +27,7 @@ public class PlayServerWindowItemsListener extends RSPacketListener<VanishArmor>
                 .listenerPriority(ListenerPriority.HIGHEST)
                 .types(PacketType.Play.Server.WINDOW_ITEMS)
                 .optionAsync());
+        this.config = plugin.getVanishConfig();
         this.manager = plugin.getToggleManager();
     }
 
@@ -32,6 +35,7 @@ public class PlayServerWindowItemsListener extends RSPacketListener<VanishArmor>
         Player player = event.getPlayer();
         if (!manager.getMap().getOrDefault(player.getUniqueId(), false)) return;
         if (!player.hasPermission(getPlugin().getName() + ".vanish")) return;
+        if (!config.isHideSelf()) return;
         PacketContainer packet = event.getPacket();
         WrapperPlayServerWindowItems p = new WrapperPlayServerWindowItems(packet);
         if (player.getOpenInventory().getType() == InventoryType.CRAFTING) {
