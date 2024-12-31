@@ -42,7 +42,7 @@ public class Command extends RSCommand<VanishArmor> {
                 manager.on(player.getUniqueId());
                 chat.announce(getSender(), getMessage().get(getSender(), "enable"));
             }
-            if (config.isHideSelf()) CraftScheduler.runLaterAsync(getPlugin(), player::updateInventory, 1);
+            CraftScheduler.runLaterAsync(getPlugin(), player::updateInventory, 1);
             if (config.isHideOther()) {
                 ProtocolManager pm = ProtocolLibrary.getProtocolManager();
                 for (Player p : Bukkit.getOnlinePlayers()) {
