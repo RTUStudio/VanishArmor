@@ -41,7 +41,7 @@ public class VanishArmor extends RSPlugin {
 
         registerPermission(getName() + ".vanish", PermissionDefault.TRUE);
 
-        registerCommand(new Command(this));
+        registerCommand(new Command(this), true);
 
         registerEvent(new PlayerItemDamage(this));
         registerEvent(new PlayerJoinQuit(this));

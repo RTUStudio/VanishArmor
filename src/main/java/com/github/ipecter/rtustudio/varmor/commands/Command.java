@@ -28,7 +28,7 @@ public class Command extends RSCommand<VanishArmor> {
     private final List<EnumWrappers.ItemSlot> slots = List.of(EnumWrappers.ItemSlot.HEAD, EnumWrappers.ItemSlot.CHEST, EnumWrappers.ItemSlot.LEGS, EnumWrappers.ItemSlot.FEET);
 
     public Command(VanishArmor plugin) {
-        super(plugin, "varmor", true);
+        super(plugin, "varmor");
         this.config = plugin.getVanishConfig();
         this.manager = plugin.getToggleManager();
     }
@@ -83,7 +83,7 @@ public class Command extends RSCommand<VanishArmor> {
                 return true;
             } else chat.announce(getSender(), getCommon().getMessage("noPermission"));
         } else chat.announce(getSender(), getCommon().getMessage(getSender(), "onlyPlayer"));
-        return false;
+        return true;
     }
 
     @Override
