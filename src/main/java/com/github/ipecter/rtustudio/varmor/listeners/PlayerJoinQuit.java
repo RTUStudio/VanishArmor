@@ -1,8 +1,8 @@
 package com.github.ipecter.rtustudio.varmor.listeners;
 
-import kr.rtuserver.framework.bukkit.api.listener.RSListener;
 import com.github.ipecter.rtustudio.varmor.VanishArmor;
 import com.github.ipecter.rtustudio.varmor.manager.ToggleManager;
+import kr.rtuserver.framework.bukkit.api.listener.RSListener;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;

@@ -1,9 +1,9 @@
 package com.github.ipecter.rtustudio.varmor.dependency;
 
-import kr.rtuserver.framework.bukkit.api.config.impl.TranslationConfiguration;
-import kr.rtuserver.framework.bukkit.api.dependencies.RSPlaceholder;
 import com.github.ipecter.rtustudio.varmor.VanishArmor;
 import com.github.ipecter.rtustudio.varmor.manager.ToggleManager;
+import kr.rtuserver.framework.bukkit.api.config.impl.TranslationConfiguration;
+import kr.rtuserver.framework.bukkit.api.dependencies.RSPlaceholder;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 

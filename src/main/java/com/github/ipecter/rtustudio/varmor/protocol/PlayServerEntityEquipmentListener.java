@@ -8,8 +8,8 @@ import com.comphenix.protocol.wrappers.EnumWrappers;
 import com.github.ipecter.rtustudio.varmor.VanishArmor;
 import com.github.ipecter.rtustudio.varmor.config.VanishConfig;
 import com.github.ipecter.rtustudio.varmor.manager.ToggleManager;
-import kr.rtuserver.framework.bukkit.api.dependencies.RSPacketListener;
 import com.github.ipecter.rtustudio.varmor.protocol.wrapper.WrapperPlayServerEntityEquipment;
+import kr.rtuserver.framework.bukkit.api.dependencies.RSPacketListener;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -19,6 +19,7 @@ public class PlayServerEntityEquipmentListener extends RSPacketListener<VanishAr
 
     private final VanishConfig config;
     private final ToggleManager manager;
+    private final ItemStack empty = new ItemStack(Material.AIR);
 
     public PlayServerEntityEquipmentListener(VanishArmor plugin) {
         super(plugin, new AdapterParameteters()
@@ -28,8 +29,6 @@ public class PlayServerEntityEquipmentListener extends RSPacketListener<VanishAr
         this.config = plugin.getVanishConfig();
         this.manager = plugin.getToggleManager();
     }
-
-    private final ItemStack empty = new ItemStack(Material.AIR);
 
     public void onPacketSending(PacketEvent event) {
         PacketContainer packet = event.getPacket();

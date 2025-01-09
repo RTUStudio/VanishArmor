@@ -28,7 +28,7 @@ public class PlayerItemDamage extends RSListener<VanishArmor> {
         Player player = e.getPlayer();
         if (!manager.getMap().getOrDefault(player.getUniqueId(), false)) return;
         if (!player.hasPermission(getPlugin().getName() + ".vanish")) return;
-        ItemStack itemStack =  e.getItem();
+        ItemStack itemStack = e.getItem();
         if (check(player, itemStack)) CraftScheduler.runLaterAsync(getPlugin(), player::updateInventory, 1);
     }
 
@@ -37,7 +37,7 @@ public class PlayerItemDamage extends RSListener<VanishArmor> {
         Player player = e.getPlayer();
         if (!manager.getMap().getOrDefault(player.getUniqueId(), false)) return;
         if (!player.hasPermission(getPlugin().getName() + ".vanish")) return;
-        ItemStack itemStack =  e.getItem();
+        ItemStack itemStack = e.getItem();
         if (check(player, itemStack)) CraftScheduler.runLaterAsync(getPlugin(), player::updateInventory, 1);
     }
 

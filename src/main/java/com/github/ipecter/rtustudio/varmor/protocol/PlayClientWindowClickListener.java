@@ -21,6 +21,7 @@ public class PlayClientWindowClickListener extends RSPacketListener<VanishArmor>
 
     private final VanishConfig config;
     private final ToggleManager manager;
+    private final ItemStack empty = new ItemStack(Material.AIR);
 
     public PlayClientWindowClickListener(VanishArmor plugin) {
         super(plugin, new AdapterParameteters()
@@ -30,8 +31,6 @@ public class PlayClientWindowClickListener extends RSPacketListener<VanishArmor>
         this.config = plugin.getVanishConfig();
         this.manager = plugin.getToggleManager();
     }
-
-    private final ItemStack empty = new ItemStack(Material.AIR);
 
     public void onPacketReceiving(PacketEvent event) {
         Player player = event.getPlayer();
