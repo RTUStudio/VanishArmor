@@ -46,13 +46,14 @@ public class PlayServerEntityEquipmentListener extends RSPacketListener<VanishAr
         }
         if (config.isHideFromOther()) {
             if (check(p.getEntityID())) {
-                Player player = (Player) p.getEntity(event);
-                if (!manager.getMap().getOrDefault(player.getUniqueId(), false)) return;
-                if (!player.hasPermission(getPlugin().getName() + ".vanish")) return;
-                p.setSlotStackPair(EnumWrappers.ItemSlot.HEAD, empty);
-                p.setSlotStackPair(EnumWrappers.ItemSlot.CHEST, empty);
-                p.setSlotStackPair(EnumWrappers.ItemSlot.LEGS, empty);
-                p.setSlotStackPair(EnumWrappers.ItemSlot.FEET, empty);
+                if (p.getEntity(event) instanceof Player player) {
+                    if (!manager.getMap().getOrDefault(player.getUniqueId(), false)) return;
+                    if (!player.hasPermission(getPlugin().getName() + ".vanish")) return;
+                    p.setSlotStackPair(EnumWrappers.ItemSlot.HEAD, empty);
+                    p.setSlotStackPair(EnumWrappers.ItemSlot.CHEST, empty);
+                    p.setSlotStackPair(EnumWrappers.ItemSlot.LEGS, empty);
+                    p.setSlotStackPair(EnumWrappers.ItemSlot.FEET, empty);
+                }
             }
         }
     }
