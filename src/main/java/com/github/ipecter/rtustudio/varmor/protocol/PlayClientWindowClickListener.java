@@ -9,7 +9,7 @@ import com.github.ipecter.rtustudio.varmor.config.VanishConfig;
 import com.github.ipecter.rtustudio.varmor.manager.ToggleManager;
 import com.github.ipecter.rtustudio.varmor.protocol.wrapper.WrapperPlayClientWindowClick;
 import kr.rtuserver.framework.bukkit.api.dependencies.RSPacketListener;
-import kr.rtuserver.framework.bukkit.api.utility.scheduler.CraftScheduler;
+import kr.rtuserver.framework.bukkit.api.scheduler.BukkitScheduler;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryType;
@@ -42,7 +42,7 @@ public class PlayClientWindowClickListener extends RSPacketListener<VanishArmor>
         if (player.getOpenInventory().getType() == InventoryType.CRAFTING) {
             List<Integer> slots = List.of(5, 6, 7, 8);
             if (slots.contains(p.getSlot())) {
-                CraftScheduler.runLaterAsync(getPlugin(), player::updateInventory, 1);
+                BukkitScheduler.runLaterAsync(getPlugin(), player::updateInventory, 1);
             }
         }
     }
