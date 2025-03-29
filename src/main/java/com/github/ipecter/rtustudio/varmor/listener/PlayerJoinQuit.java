@@ -1,4 +1,4 @@
-package com.github.ipecter.rtustudio.varmor.listeners;
+package com.github.ipecter.rtustudio.varmor.listener;
 
 import com.github.ipecter.rtustudio.varmor.VanishArmor;
 import com.github.ipecter.rtustudio.varmor.manager.ToggleManager;

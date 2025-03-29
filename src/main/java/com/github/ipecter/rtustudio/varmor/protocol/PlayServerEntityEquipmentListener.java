@@ -6,7 +6,7 @@ import com.comphenix.protocol.events.PacketContainer;
 import com.comphenix.protocol.events.PacketEvent;
 import com.comphenix.protocol.wrappers.EnumWrappers;
 import com.github.ipecter.rtustudio.varmor.VanishArmor;
-import com.github.ipecter.rtustudio.varmor.config.VanishConfig;
+import com.github.ipecter.rtustudio.varmor.configuration.VanishConfig;
 import com.github.ipecter.rtustudio.varmor.manager.ToggleManager;
 import com.github.ipecter.rtustudio.varmor.protocol.wrapper.WrapperPlayServerEntityEquipment;
 import kr.rtuserver.framework.bukkit.api.dependencies.RSPacketListener;

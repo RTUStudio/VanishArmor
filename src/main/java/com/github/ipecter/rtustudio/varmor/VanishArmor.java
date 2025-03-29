@@ -1,10 +1,10 @@
 package com.github.ipecter.rtustudio.varmor;
 
-import com.github.ipecter.rtustudio.varmor.commands.Command;
-import com.github.ipecter.rtustudio.varmor.config.VanishConfig;
+import com.github.ipecter.rtustudio.varmor.command.Command;
+import com.github.ipecter.rtustudio.varmor.configuration.VanishConfig;
 import com.github.ipecter.rtustudio.varmor.dependency.PlaceholderAPI;
-import com.github.ipecter.rtustudio.varmor.listeners.PlayerItemDamage;
-import com.github.ipecter.rtustudio.varmor.listeners.PlayerJoinQuit;
+import com.github.ipecter.rtustudio.varmor.listener.PlayerItemDamage;
+import com.github.ipecter.rtustudio.varmor.listener.PlayerJoinQuit;
 import com.github.ipecter.rtustudio.varmor.manager.ToggleManager;
 import com.github.ipecter.rtustudio.varmor.protocol.PlayClientWindowClickListener;
 import com.github.ipecter.rtustudio.varmor.protocol.PlayServerEntityEquipmentListener;
