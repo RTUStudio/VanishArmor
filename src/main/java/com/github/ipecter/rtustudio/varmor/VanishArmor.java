@@ -1,6 +1,6 @@
 package com.github.ipecter.rtustudio.varmor;
 
-import com.github.ipecter.rtustudio.varmor.command.Command;
+import com.github.ipecter.rtustudio.varmor.command.MainCommand;
 import com.github.ipecter.rtustudio.varmor.configuration.VanishConfig;
 import com.github.ipecter.rtustudio.varmor.dependency.PlaceholderAPI;
 import com.github.ipecter.rtustudio.varmor.listener.PlayerItemDamage;
@@ -41,7 +41,7 @@ public class VanishArmor extends RSPlugin {
 
         registerPermission(getName() + ".vanish", PermissionDefault.TRUE);
 
-        registerCommand(new Command(this), true);
+        registerCommand(new MainCommand(this), true);
 
         registerEvent(new PlayerItemDamage(this));
         registerEvent(new PlayerJoinQuit(this));

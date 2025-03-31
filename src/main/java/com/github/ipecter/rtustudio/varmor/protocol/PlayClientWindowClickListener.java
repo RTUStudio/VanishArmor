@@ -8,12 +8,10 @@ import com.github.ipecter.rtustudio.varmor.VanishArmor;
 import com.github.ipecter.rtustudio.varmor.configuration.VanishConfig;
 import com.github.ipecter.rtustudio.varmor.manager.ToggleManager;
 import com.github.ipecter.rtustudio.varmor.protocol.wrapper.WrapperPlayClientWindowClick;
-import kr.rtuserver.framework.bukkit.api.dependencies.RSPacketListener;
+import kr.rtuserver.framework.bukkit.api.dependency.RSPacketListener;
 import kr.rtuserver.framework.bukkit.api.scheduler.BukkitScheduler;
-import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryType;
-import org.bukkit.inventory.ItemStack;
 
 import java.util.List;
 
@@ -21,7 +19,6 @@ public class PlayClientWindowClickListener extends RSPacketListener<VanishArmor>
 
     private final VanishConfig config;
     private final ToggleManager manager;
-    private final ItemStack empty = new ItemStack(Material.AIR);
 
     public PlayClientWindowClickListener(VanishArmor plugin) {
         super(plugin, new AdapterParameteters()

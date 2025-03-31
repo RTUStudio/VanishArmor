@@ -18,7 +18,7 @@ import org.bukkit.inventory.ItemStack;
 
 import java.util.List;
 
-public class Command extends RSCommand<VanishArmor> {
+public class MainCommand extends RSCommand<VanishArmor> {
 
     private final VanishConfig config;
     private final ToggleManager manager;
@@ -26,7 +26,7 @@ public class Command extends RSCommand<VanishArmor> {
     private final ItemStack empty = new ItemStack(Material.AIR);
     private final List<EnumWrappers.ItemSlot> slots = List.of(EnumWrappers.ItemSlot.HEAD, EnumWrappers.ItemSlot.CHEST, EnumWrappers.ItemSlot.LEGS, EnumWrappers.ItemSlot.FEET);
 
-    public Command(VanishArmor plugin) {
+    public MainCommand(VanishArmor plugin) {
         super(plugin, "varmor");
         this.config = plugin.getVanishConfig();
         this.manager = plugin.getToggleManager();
@@ -37,17 +37,17 @@ public class Command extends RSCommand<VanishArmor> {
         if (!data.length(0)) return false;
         Player player = player();
         if (player == null) {
-            chat.announce(sender(), common.getMessage(sender(), "onlyPlayer"));
+            chat().announce(audience(), message().getCommon(player(), "onlyPlayer"));
             return true;
         }
         if (hasPermission(getPlugin().getName() + ".vanish")) {
             boolean isVanished = manager.getMap().getOrDefault(player.getUniqueId(), false);
             if (isVanished) {
                 manager.off(player.getUniqueId());
-                chat.announce(sender(), message.get(sender(), "disable"));
+                chat().announce(audience(), message().get(player(), "disable"));
             } else {
                 manager.on(player.getUniqueId());
-                chat.announce(sender(), message.get(sender(), "enable"));
+                chat().announce(audience(), message().get(player(), "enable"));
             }
             BukkitScheduler.runLaterAsync(getPlugin(), player::updateInventory, 1);
             if (config.isHideOther()) {
@@ -83,7 +83,7 @@ public class Command extends RSCommand<VanishArmor> {
                 }
             }
             return true;
-        } else chat.announce(sender(), common.getMessage("noPermission"));
+        } else chat().announce(audience(), message().getCommon("noPermission"));
         return true;
     }
 

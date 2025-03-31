@@ -43,7 +43,6 @@ public class PlayerItemDamage extends RSListener<VanishArmor> {
 
     private boolean check(Player player, ItemStack itemStack) {
         EntityEquipment equipment = player.getEquipment();
-        if (equipment == null) return false;
         for (EquipmentSlot slot : List.of(EquipmentSlot.HEAD, EquipmentSlot.CHEST, EquipmentSlot.LEGS, EquipmentSlot.FEET)) {
             ItemStack target = equipment.getItem(slot);
             return target.isSimilar(itemStack);

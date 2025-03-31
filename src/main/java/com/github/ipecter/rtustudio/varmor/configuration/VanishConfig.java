@@ -1,7 +1,7 @@
 package com.github.ipecter.rtustudio.varmor.configuration;
 
 import com.github.ipecter.rtustudio.varmor.VanishArmor;
-import kr.rtuserver.framework.bukkit.api.config.RSConfiguration;
+import kr.rtuserver.framework.bukkit.api.configuration.RSConfiguration;
 import lombok.Getter;
 import lombok.Setter;
 

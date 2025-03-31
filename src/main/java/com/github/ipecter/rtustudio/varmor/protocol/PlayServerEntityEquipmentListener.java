@@ -9,7 +9,7 @@ import com.github.ipecter.rtustudio.varmor.VanishArmor;
 import com.github.ipecter.rtustudio.varmor.configuration.VanishConfig;
 import com.github.ipecter.rtustudio.varmor.manager.ToggleManager;
 import com.github.ipecter.rtustudio.varmor.protocol.wrapper.WrapperPlayServerEntityEquipment;
-import kr.rtuserver.framework.bukkit.api.dependencies.RSPacketListener;
+import kr.rtuserver.framework.bukkit.api.dependency.RSPacketListener;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
