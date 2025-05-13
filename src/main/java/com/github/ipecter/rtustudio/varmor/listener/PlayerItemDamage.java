@@ -3,7 +3,7 @@ package com.github.ipecter.rtustudio.varmor.listener;
 import com.github.ipecter.rtustudio.varmor.VanishArmor;
 import com.github.ipecter.rtustudio.varmor.manager.ToggleManager;
 import kr.rtuserver.framework.bukkit.api.listener.RSListener;
-import kr.rtuserver.framework.bukkit.api.scheduler.BukkitScheduler;
+import kr.rtuserver.framework.bukkit.api.scheduler.CraftScheduler;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerItemDamageEvent;
@@ -26,19 +26,19 @@ public class PlayerItemDamage extends RSListener<VanishArmor> {
     @EventHandler
     public void onPlayerItemDamage(PlayerItemDamageEvent e) {
         Player player = e.getPlayer();
-        if (!manager.getMap().getOrDefault(player.getUniqueId(), false)) return;
+        if (!manager.get(player.getUniqueId())) return;
         if (!player.hasPermission(getPlugin().getName() + ".vanish")) return;
         ItemStack itemStack = e.getItem();
-        if (check(player, itemStack)) BukkitScheduler.runLaterAsync(getPlugin(), player::updateInventory, 1);
+        if (check(player, itemStack)) CraftScheduler.runLaterAsync(getPlugin(), player::updateInventory, 1);
     }
 
     @EventHandler
     public void onPlayerItemDamage(PlayerItemMendEvent e) {
         Player player = e.getPlayer();
-        if (!manager.getMap().getOrDefault(player.getUniqueId(), false)) return;
+        if (!manager.get(player.getUniqueId())) return;
         if (!player.hasPermission(getPlugin().getName() + ".vanish")) return;
         ItemStack itemStack = e.getItem();
-        if (check(player, itemStack)) BukkitScheduler.runLaterAsync(getPlugin(), player::updateInventory, 1);
+        if (check(player, itemStack)) CraftScheduler.runLaterAsync(getPlugin(), player::updateInventory, 1);
     }
 
     private boolean check(Player player, ItemStack itemStack) {

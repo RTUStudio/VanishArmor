@@ -2,7 +2,7 @@ package com.github.ipecter.rtustudio.varmor.dependency;
 
 import com.github.ipecter.rtustudio.varmor.VanishArmor;
 import com.github.ipecter.rtustudio.varmor.manager.ToggleManager;
-import kr.rtuserver.framework.bukkit.api.dependency.RSPlaceholder;
+import kr.rtuserver.framework.bukkit.api.integration.RSPlaceholder;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 
@@ -18,7 +18,7 @@ public class PlaceholderAPI extends RSPlaceholder<VanishArmor> {
     @Override
     public String request(OfflinePlayer offlinePlayer, String[] params) {
         if ("status".equalsIgnoreCase(params[0])) {
-            if (manager.getMap().getOrDefault(offlinePlayer.getUniqueId(), false)) {
+            if (manager.get(offlinePlayer.getUniqueId())) {
                 if (offlinePlayer instanceof Player player) {
                     return message().get(player, "placeholder.active");
                 } else return message().get("placeholder.active");

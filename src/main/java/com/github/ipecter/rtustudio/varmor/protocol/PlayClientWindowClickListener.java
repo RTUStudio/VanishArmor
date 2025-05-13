@@ -8,8 +8,8 @@ import com.github.ipecter.rtustudio.varmor.VanishArmor;
 import com.github.ipecter.rtustudio.varmor.configuration.VanishConfig;
 import com.github.ipecter.rtustudio.varmor.manager.ToggleManager;
 import com.github.ipecter.rtustudio.varmor.protocol.wrapper.WrapperPlayClientWindowClick;
-import kr.rtuserver.framework.bukkit.api.dependency.RSPacketListener;
-import kr.rtuserver.framework.bukkit.api.scheduler.BukkitScheduler;
+import kr.rtuserver.framework.bukkit.api.integration.RSPacketListener;
+import kr.rtuserver.framework.bukkit.api.scheduler.CraftScheduler;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryType;
 
@@ -29,9 +29,10 @@ public class PlayClientWindowClickListener extends RSPacketListener<VanishArmor>
         this.manager = plugin.getToggleManager();
     }
 
-    public void onPacketReceiving(PacketEvent event) {
+    @Override
+    public void receive(PacketEvent event) {
         Player player = event.getPlayer();
-        if (!manager.getMap().getOrDefault(player.getUniqueId(), false)) return;
+        if (!manager.get(player.getUniqueId())) return;
         if (!player.hasPermission(getPlugin().getName() + ".vanish")) return;
         if (!config.isHideSelf()) return;
         PacketContainer packet = event.getPacket();
@@ -39,7 +40,7 @@ public class PlayClientWindowClickListener extends RSPacketListener<VanishArmor>
         if (player.getOpenInventory().getType() == InventoryType.CRAFTING) {
             List<Integer> slots = List.of(5, 6, 7, 8);
             if (slots.contains(p.getSlot())) {
-                BukkitScheduler.runLaterAsync(getPlugin(), player::updateInventory, 1);
+                CraftScheduler.runLaterAsync(getPlugin(), player::updateInventory, 1);
             }
         }
     }

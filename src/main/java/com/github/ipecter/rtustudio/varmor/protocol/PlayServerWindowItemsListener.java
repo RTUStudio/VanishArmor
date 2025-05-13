@@ -8,7 +8,7 @@ import com.github.ipecter.rtustudio.varmor.VanishArmor;
 import com.github.ipecter.rtustudio.varmor.configuration.VanishConfig;
 import com.github.ipecter.rtustudio.varmor.manager.ToggleManager;
 import com.github.ipecter.rtustudio.varmor.protocol.wrapper.WrapperPlayServerWindowItems;
-import kr.rtuserver.framework.bukkit.api.dependency.RSPacketListener;
+import kr.rtuserver.framework.bukkit.api.integration.RSPacketListener;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryType;
@@ -31,9 +31,9 @@ public class PlayServerWindowItemsListener extends RSPacketListener<VanishArmor>
         this.manager = plugin.getToggleManager();
     }
 
-    public void onPacketSending(PacketEvent event) {
+    public void send(PacketEvent event) {
         Player player = event.getPlayer();
-        if (!manager.getMap().getOrDefault(player.getUniqueId(), false)) return;
+        if (!manager.get(player.getUniqueId())) return;
         if (!player.hasPermission(getPlugin().getName() + ".vanish")) return;
         if (!config.isHideSelf()) return;
         PacketContainer packet = event.getPacket();

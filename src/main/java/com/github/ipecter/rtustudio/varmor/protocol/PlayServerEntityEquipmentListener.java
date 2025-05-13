@@ -9,7 +9,7 @@ import com.github.ipecter.rtustudio.varmor.VanishArmor;
 import com.github.ipecter.rtustudio.varmor.configuration.VanishConfig;
 import com.github.ipecter.rtustudio.varmor.manager.ToggleManager;
 import com.github.ipecter.rtustudio.varmor.protocol.wrapper.WrapperPlayServerEntityEquipment;
-import kr.rtuserver.framework.bukkit.api.dependency.RSPacketListener;
+import kr.rtuserver.framework.bukkit.api.integration.RSPacketListener;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -30,13 +30,13 @@ public class PlayServerEntityEquipmentListener extends RSPacketListener<VanishAr
         this.manager = plugin.getToggleManager();
     }
 
-    public void onPacketSending(PacketEvent event) {
+    public void send(PacketEvent event) {
         PacketContainer packet = event.getPacket();
         WrapperPlayServerEntityEquipment p = new WrapperPlayServerEntityEquipment(packet);
         if (config.isHideOther()) {
             if (check(p.getEntityID())) {
                 Player player = event.getPlayer();
-                if (!manager.getMap().getOrDefault(player.getUniqueId(), false)) return;
+                if (!manager.get(player.getUniqueId())) return;
                 if (!player.hasPermission(getPlugin().getName() + ".vanish")) return;
                 p.setSlotStackPair(EnumWrappers.ItemSlot.HEAD, empty);
                 p.setSlotStackPair(EnumWrappers.ItemSlot.CHEST, empty);
@@ -47,7 +47,7 @@ public class PlayServerEntityEquipmentListener extends RSPacketListener<VanishAr
         if (config.isHideFromOther()) {
             if (check(p.getEntityID())) {
                 if (p.getEntity(event) instanceof Player player) {
-                    if (!manager.getMap().getOrDefault(player.getUniqueId(), false)) return;
+                    if (!manager.get(player.getUniqueId())) return;
                     if (!player.hasPermission(getPlugin().getName() + ".vanish")) return;
                     p.setSlotStackPair(EnumWrappers.ItemSlot.HEAD, empty);
                     p.setSlotStackPair(EnumWrappers.ItemSlot.CHEST, empty);

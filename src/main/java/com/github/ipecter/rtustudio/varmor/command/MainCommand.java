@@ -9,7 +9,7 @@ import com.github.ipecter.rtustudio.varmor.manager.ToggleManager;
 import com.github.ipecter.rtustudio.varmor.protocol.wrapper.WrapperPlayServerEntityEquipment;
 import kr.rtuserver.framework.bukkit.api.command.RSCommand;
 import kr.rtuserver.framework.bukkit.api.command.RSCommandData;
-import kr.rtuserver.framework.bukkit.api.scheduler.BukkitScheduler;
+import kr.rtuserver.framework.bukkit.api.scheduler.CraftScheduler;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -41,7 +41,7 @@ public class MainCommand extends RSCommand<VanishArmor> {
             return true;
         }
         if (hasPermission(getPlugin().getName() + ".vanish")) {
-            boolean isVanished = manager.getMap().getOrDefault(player.getUniqueId(), false);
+            boolean isVanished = manager.get(player.getUniqueId());
             if (isVanished) {
                 manager.off(player.getUniqueId());
                 chat().announce(audience(), message().get(player(), "disable"));
@@ -49,7 +49,7 @@ public class MainCommand extends RSCommand<VanishArmor> {
                 manager.on(player.getUniqueId());
                 chat().announce(audience(), message().get(player(), "enable"));
             }
-            BukkitScheduler.runLaterAsync(getPlugin(), player::updateInventory, 1);
+            CraftScheduler.runLaterAsync(getPlugin(), player::updateInventory, 1);
             if (config.isHideOther()) {
                 ProtocolManager pm = ProtocolLibrary.getProtocolManager();
                 for (Player p : Bukkit.getOnlinePlayers()) {

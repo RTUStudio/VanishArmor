@@ -34,7 +34,7 @@ public class VanishArmor extends RSPlugin {
 
     @Override
     public void enable() {
-        getConfigurations().initStorage("Toggle");
+        getConfigurations().getStorage().init("Toggle");
 
         vanishConfig = new VanishConfig(this);
         toggleManager = new ToggleManager(this);

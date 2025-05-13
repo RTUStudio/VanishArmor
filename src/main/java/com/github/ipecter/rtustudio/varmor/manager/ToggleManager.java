@@ -1,9 +1,8 @@
 package com.github.ipecter.rtustudio.varmor.manager;
 
 import com.github.ipecter.rtustudio.varmor.VanishArmor;
+import kr.rtuserver.framework.bukkit.api.platform.JSON;
 import kr.rtuserver.framework.bukkit.api.storage.Storage;
-import kr.rtuserver.framework.bukkit.api.utility.platform.JSON;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.tuple.Pair;
 
@@ -15,8 +14,11 @@ import java.util.UUID;
 public class ToggleManager {
 
     private final VanishArmor plugin;
-    @Getter
     private final Map<UUID, Boolean> map = new HashMap<>();
+
+    public boolean get(UUID uuid) {
+        return map.getOrDefault(uuid, false);
+    }
 
     public void addPlayer(UUID uuid) {
         Storage storage = plugin.getStorage();
@@ -34,13 +36,13 @@ public class ToggleManager {
 
     public void on(UUID uuid) {
         Storage storage = plugin.getStorage();
-        storage.set("Toggle", Pair.of("uuid", uuid.toString()), Pair.of("toggle", true));
+        storage.set("Toggle", Pair.of("uuid", uuid.toString()), JSON.of("toggle", true).get());
         map.put(uuid, true);
     }
 
     public void off(UUID uuid) {
         Storage storage = plugin.getStorage();
-        storage.set("Toggle", Pair.of("uuid", uuid.toString()), Pair.of("toggle", false));
+        storage.set("Toggle", Pair.of("uuid", uuid.toString()), JSON.of("toggle", false).get());
         map.put(uuid, false);
     }
 
