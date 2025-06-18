@@ -4,7 +4,6 @@ import com.github.ipecter.rtustudio.varmor.VanishArmor;
 import kr.rtuserver.framework.bukkit.api.platform.JSON;
 import kr.rtuserver.framework.bukkit.api.storage.Storage;
 import lombok.RequiredArgsConstructor;
-import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -22,9 +21,9 @@ public class ToggleManager {
 
     public void addPlayer(UUID uuid) {
         Storage storage = plugin.getStorage();
-        storage.get("Toggle", Pair.of("uuid", uuid.toString())).thenAccept(result -> {
+        storage.get("Toggle", JSON.of("uuid", uuid.toString())).thenAccept(result -> {
             if (result == null || result.isEmpty()) {
-                storage.add("Toggle", JSON.of("uuid", uuid.toString()).append("toggle", false).get());
+                storage.add("Toggle", JSON.of("uuid", uuid.toString()).append("toggle", false));
                 map.put(uuid, false);
             } else map.put(uuid, result.get(0).get("toggle").getAsBoolean());
         });
@@ -36,13 +35,13 @@ public class ToggleManager {
 
     public void on(UUID uuid) {
         Storage storage = plugin.getStorage();
-        storage.set("Toggle", Pair.of("uuid", uuid.toString()), JSON.of("toggle", true).get());
+        storage.set("Toggle", JSON.of("uuid", uuid.toString()), JSON.of("toggle", true));
         map.put(uuid, true);
     }
 
     public void off(UUID uuid) {
         Storage storage = plugin.getStorage();
-        storage.set("Toggle", Pair.of("uuid", uuid.toString()), JSON.of("toggle", false).get());
+        storage.set("Toggle", JSON.of("uuid", uuid.toString()), JSON.of("toggle", false));
         map.put(uuid, false);
     }
 
