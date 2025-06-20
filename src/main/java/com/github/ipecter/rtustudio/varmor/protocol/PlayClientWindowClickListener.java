@@ -39,6 +39,7 @@ public class PlayClientWindowClickListener extends RSPacketListener<VanishArmor>
         WrapperPlayClientWindowClick p = new WrapperPlayClientWindowClick(packet);
         if (player.getOpenInventory().getType() == InventoryType.CRAFTING) {
             List<Integer> slots = List.of(5, 6, 7, 8);
+            player.sendMessage(p.getSlot() + "");
             if (slots.contains(p.getSlot())) {
                 CraftScheduler.runLaterAsync(getPlugin(), player::updateInventory, 1);
             }

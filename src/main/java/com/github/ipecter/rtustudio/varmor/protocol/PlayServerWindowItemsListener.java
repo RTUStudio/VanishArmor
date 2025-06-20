@@ -13,7 +13,6 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.List;
 
@@ -21,6 +20,7 @@ public class PlayServerWindowItemsListener extends RSPacketListener<VanishArmor>
 
     private final VanishConfig config;
     private final ToggleManager manager;
+    private final ItemStack empty = new ItemStack(Material.AIR);
 
     public PlayServerWindowItemsListener(VanishArmor plugin) {
         super(plugin, new AdapterParameteters()
@@ -40,16 +40,19 @@ public class PlayServerWindowItemsListener extends RSPacketListener<VanishArmor>
         WrapperPlayServerWindowItems p = new WrapperPlayServerWindowItems(packet);
         if (player.getOpenInventory().getType() == InventoryType.CRAFTING) {
             List<ItemStack> list = p.getSlotData();
-            ItemStack itemStack = new ItemStack(Material.AIR);
-            ItemMeta itemMeta = itemStack.getItemMeta();
-            itemStack.setItemMeta(itemMeta);
-            list.set(5, itemStack);
-            list.set(6, itemStack);
-            list.set(7, itemStack);
-            list.set(8, itemStack);
+            for (int slot = 5; slot < 9; slot++) {
+                ItemStack itemStack = list.get(slot);
+                if (itemStack == null) continue;
+                if (isCosmetic(itemStack)) continue;
+                list.set(slot, empty);
+            }
             p.setSlotData(list);
         }
 
+    }
+
+    private boolean isCosmetic(ItemStack itemStack) {
+        return itemStack.hasItemMeta() && itemStack.getItemMeta().hasCustomModelData();
     }
 
 }

@@ -15,11 +15,14 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.List;
+
 public class PlayServerEntityEquipmentListener extends RSPacketListener<VanishArmor> {
 
     private final VanishConfig config;
     private final ToggleManager manager;
     private final ItemStack empty = new ItemStack(Material.AIR);
+    private final List<EnumWrappers.ItemSlot> slots;
 
     public PlayServerEntityEquipmentListener(VanishArmor plugin) {
         super(plugin, new AdapterParameteters()
@@ -28,6 +31,8 @@ public class PlayServerEntityEquipmentListener extends RSPacketListener<VanishAr
                 .optionAsync());
         this.config = plugin.getVanishConfig();
         this.manager = plugin.getToggleManager();
+        this.slots = List.of(EnumWrappers.ItemSlot.HEAD, EnumWrappers.ItemSlot.CHEST, EnumWrappers.ItemSlot.LEGS, EnumWrappers.ItemSlot.FEET);
+
     }
 
     public void send(PacketEvent event) {
@@ -38,10 +43,12 @@ public class PlayServerEntityEquipmentListener extends RSPacketListener<VanishAr
                 Player player = event.getPlayer();
                 if (!manager.get(player.getUniqueId())) return;
                 if (!player.hasPermission(getPlugin().getName() + ".vanish")) return;
-                p.setSlotStackPair(EnumWrappers.ItemSlot.HEAD, empty);
-                p.setSlotStackPair(EnumWrappers.ItemSlot.CHEST, empty);
-                p.setSlotStackPair(EnumWrappers.ItemSlot.LEGS, empty);
-                p.setSlotStackPair(EnumWrappers.ItemSlot.FEET, empty);
+                for (EnumWrappers.ItemSlot slot : slots) {
+                    ItemStack itemStack = p.getItem(slot);
+                    if (itemStack == null) continue;
+                    if (config.isBypassCosmetics() && isCosmetic(itemStack)) continue;
+                    p.setSlotStackPair(slot, empty);
+                }
             }
         }
         if (config.isHideFromOther()) {
@@ -49,10 +56,12 @@ public class PlayServerEntityEquipmentListener extends RSPacketListener<VanishAr
                 if (p.getEntity(event) instanceof Player player) {
                     if (!manager.get(player.getUniqueId())) return;
                     if (!player.hasPermission(getPlugin().getName() + ".vanish")) return;
-                    p.setSlotStackPair(EnumWrappers.ItemSlot.HEAD, empty);
-                    p.setSlotStackPair(EnumWrappers.ItemSlot.CHEST, empty);
-                    p.setSlotStackPair(EnumWrappers.ItemSlot.LEGS, empty);
-                    p.setSlotStackPair(EnumWrappers.ItemSlot.FEET, empty);
+                    for (EnumWrappers.ItemSlot slot : slots) {
+                        ItemStack itemStack = p.getItem(slot);
+                        if (itemStack == null) continue;
+                        if (config.isBypassCosmetics() && isCosmetic(itemStack)) continue;
+                        p.setSlotStackPair(slot, empty);
+                    }
                 }
             }
         }
@@ -63,5 +72,9 @@ public class PlayServerEntityEquipmentListener extends RSPacketListener<VanishAr
             if (id == player.getEntityId()) return true;
         }
         return false;
+    }
+
+    private boolean isCosmetic(ItemStack itemStack) {
+        return itemStack.hasItemMeta() && itemStack.getItemMeta().hasCustomModelData();
     }
 }

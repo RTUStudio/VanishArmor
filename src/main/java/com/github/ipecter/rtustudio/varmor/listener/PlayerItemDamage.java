@@ -24,7 +24,7 @@ public class PlayerItemDamage extends RSListener<VanishArmor> {
     }
 
     @EventHandler
-    public void onPlayerItemDamage(PlayerItemDamageEvent e) {
+    public void onArmorDamage(PlayerItemDamageEvent e) {
         Player player = e.getPlayer();
         if (!manager.get(player.getUniqueId())) return;
         if (!player.hasPermission(getPlugin().getName() + ".vanish")) return;
@@ -33,7 +33,7 @@ public class PlayerItemDamage extends RSListener<VanishArmor> {
     }
 
     @EventHandler
-    public void onPlayerItemDamage(PlayerItemMendEvent e) {
+    public void onArmorMend(PlayerItemMendEvent e) {
         Player player = e.getPlayer();
         if (!manager.get(player.getUniqueId())) return;
         if (!player.hasPermission(getPlugin().getName() + ".vanish")) return;

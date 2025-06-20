@@ -2,6 +2,7 @@ package com.github.ipecter.rtustudio.varmor.protocol.wrapper;
 
 import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.events.PacketContainer;
+import kr.rtuserver.framework.bukkit.api.platform.MinecraftVersion;
 import org.bukkit.inventory.ItemStack;
 
 public class WrapperPlayClientWindowClick extends AbstractPacket {
@@ -44,6 +45,8 @@ public class WrapperPlayClientWindowClick extends AbstractPacket {
      * @return The current Slot
      */
     public int getSlot() {
+        if (MinecraftVersion.isSupport("1.21.5"))
+            return handle.getShorts().read(0); // I think Its bug from ProtocolLib dev build
         return handle.getIntegers().read(2);
     }
 
@@ -53,7 +56,9 @@ public class WrapperPlayClientWindowClick extends AbstractPacket {
      * @param value - new value.
      */
     public void setSlot(int value) {
-        handle.getIntegers().write(2, value);
+        if (MinecraftVersion.isSupport("1.21.5")) {
+            handle.getShorts().write(0, (short) value);
+        } else handle.getIntegers().write(2, value);
     }
 
     /**
