@@ -1,11 +1,12 @@
-package com.github.ipecter.rtustudio.varmor.listener;
+package kr.rtustudio.varmor.listener;
 
-import com.github.ipecter.rtustudio.varmor.VanishArmor;
-import com.github.ipecter.rtustudio.varmor.manager.ToggleManager;
-import kr.rtuserver.framework.bukkit.api.listener.RSListener;
-import kr.rtuserver.framework.bukkit.api.scheduler.CraftScheduler;
+import kr.rtustudio.framework.bukkit.api.listener.RSListener;
+import kr.rtustudio.framework.bukkit.api.scheduler.CraftScheduler;
+import kr.rtustudio.varmor.VanishArmor;
+import kr.rtustudio.varmor.manager.ToggleManager;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.player.PlayerItemDamageEvent;
 import org.bukkit.event.player.PlayerItemMendEvent;
 import org.bukkit.inventory.EntityEquipment;
@@ -14,6 +15,7 @@ import org.bukkit.inventory.ItemStack;
 
 import java.util.List;
 
+@SuppressWarnings("unused")
 public class PlayerItemDamage extends RSListener<VanishArmor> {
 
     private final ToggleManager manager;
@@ -23,22 +25,22 @@ public class PlayerItemDamage extends RSListener<VanishArmor> {
         this.manager = plugin.getToggleManager();
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.MONITOR)
     public void onArmorDamage(PlayerItemDamageEvent e) {
         Player player = e.getPlayer();
         if (!manager.get(player.getUniqueId())) return;
-        if (!player.hasPermission(getPlugin().getName() + ".vanish")) return;
+        if (!getPlugin().hasPermission(player, "vanish")) return;
         ItemStack itemStack = e.getItem();
-        if (check(player, itemStack)) CraftScheduler.runLaterAsync(getPlugin(), player::updateInventory, 1);
+        if (check(player, itemStack)) CraftScheduler.delay(getPlugin(), player::updateInventory, 1, true);
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.MONITOR)
     public void onArmorMend(PlayerItemMendEvent e) {
         Player player = e.getPlayer();
         if (!manager.get(player.getUniqueId())) return;
-        if (!player.hasPermission(getPlugin().getName() + ".vanish")) return;
+        if (!getPlugin().hasPermission(player, "vanish")) return;
         ItemStack itemStack = e.getItem();
-        if (check(player, itemStack)) CraftScheduler.runLaterAsync(getPlugin(), player::updateInventory, 1);
+        if (check(player, itemStack)) CraftScheduler.delay(getPlugin(), player::updateInventory, 1, true);
     }
 
     private boolean check(Player player, ItemStack itemStack) {

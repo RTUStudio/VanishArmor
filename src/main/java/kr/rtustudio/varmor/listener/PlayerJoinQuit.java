@@ -1,15 +1,16 @@
-package com.github.ipecter.rtustudio.varmor.listener;
+package kr.rtustudio.varmor.listener;
 
-import com.github.ipecter.rtustudio.varmor.VanishArmor;
-import com.github.ipecter.rtustudio.varmor.manager.ToggleManager;
-import kr.rtuserver.framework.bukkit.api.listener.RSListener;
-import kr.rtuserver.framework.bukkit.api.scheduler.CraftScheduler;
+import kr.rtustudio.framework.bukkit.api.listener.RSListener;
+import kr.rtustudio.framework.bukkit.api.scheduler.CraftScheduler;
+import kr.rtustudio.varmor.VanishArmor;
+import kr.rtustudio.varmor.manager.ToggleManager;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.spigotmc.event.player.PlayerSpawnLocationEvent;
 
+@SuppressWarnings("unused")
 public class PlayerJoinQuit extends RSListener<VanishArmor> {
 
     private final ToggleManager manager;
@@ -26,7 +27,7 @@ public class PlayerJoinQuit extends RSListener<VanishArmor> {
 
     @EventHandler(priority = EventPriority.MONITOR)
     public void onPostJoin(PlayerSpawnLocationEvent e) {
-        CraftScheduler.runLaterAsync(getPlugin(), e.getPlayer()::updateInventory, 1);
+        CraftScheduler.delay(getPlugin(), e.getPlayer()::updateInventory, 1, true);
     }
 
     @EventHandler

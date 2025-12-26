@@ -1,8 +1,8 @@
-package com.github.ipecter.rtustudio.varmor.manager;
+package kr.rtustudio.varmor.manager;
 
-import com.github.ipecter.rtustudio.varmor.VanishArmor;
-import kr.rtuserver.framework.bukkit.api.platform.JSON;
-import kr.rtuserver.framework.bukkit.api.storage.Storage;
+import kr.rtustudio.framework.bukkit.api.platform.JSON;
+import kr.rtustudio.framework.bukkit.api.storage.Storage;
+import kr.rtustudio.varmor.VanishArmor;
 import lombok.RequiredArgsConstructor;
 
 import java.util.HashMap;
@@ -25,7 +25,7 @@ public class ToggleManager {
             if (result == null || result.isEmpty()) {
                 storage.add("Toggle", JSON.of("uuid", uuid.toString()).append("toggle", false));
                 map.put(uuid, false);
-            } else map.put(uuid, result.get(0).get("toggle").getAsBoolean());
+            } else map.put(uuid, result.getFirst().get("toggle").getAsBoolean());
         });
     }
 

@@ -4,6 +4,6 @@ main: '${main}'
 description: 'RSPlugin - ${name}'
 api-version: '${api_version}'
 folia-supported: true
-depend: [ RSFramework, ProtocolLib ]
+depend: [ RSFramework, packetevents ]
 softdepend: [ ]
 authors: [ '${author}' ]

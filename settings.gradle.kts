@@ -1,2 +1,1 @@
-// Change project name
 rootProject.name = "VanishArmor"
