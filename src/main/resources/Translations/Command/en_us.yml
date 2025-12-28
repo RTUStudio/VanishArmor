@@ -1,0 +1,4 @@
+varmor:
+  name: varmor
+  description: Toggle armor visibility
+  usage: "/varmor"

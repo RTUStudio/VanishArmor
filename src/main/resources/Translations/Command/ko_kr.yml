@@ -1,0 +1,4 @@
+varmor:
+  name: 갑옷은폐
+  description: 갑옷 은폐를 토글합니다
+  usage: "/갑옷은폐"
