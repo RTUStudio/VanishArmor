@@ -1,11 +1,17 @@
 package kr.rtustudio.varmor.configuration;
 
-import kr.rtustudio.configurate.objectmapping.meta.Comment;
 import kr.rtustudio.configurate.model.ConfigurationPart;
+import kr.rtustudio.configurate.objectmapping.meta.Comment;
 import lombok.Getter;
 
 @Getter
-@SuppressWarnings({"unused", "FieldMayBeFinal"})
+@SuppressWarnings({
+        "unused",
+        "CanBeFinal",
+        "FieldCanBeLocal",
+        "FieldMayBeFinal",
+        "InnerClassMayBeStatic"
+})
 public class VanishConfig extends ConfigurationPart {
 
     @Comment("""

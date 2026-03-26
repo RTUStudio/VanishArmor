@@ -5,13 +5,14 @@ import com.github.retrooper.packetevents.protocol.item.ItemStack;
 import com.github.retrooper.packetevents.protocol.packettype.PacketType;
 import com.github.retrooper.packetevents.wrapper.play.server.WrapperPlayServerWindowItems;
 import io.github.retrooper.packetevents.util.SpigotConversionUtil;
-import java.util.List;
 import kr.rtustudio.framework.bukkit.api.integration.wrapper.PacketWrapper;
 import kr.rtustudio.varmor.VanishArmor;
 import kr.rtustudio.varmor.configuration.VanishConfig;
 import kr.rtustudio.varmor.manager.ToggleManager;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryType;
+
+import java.util.List;
 
 public class ServerWindowItems extends PacketWrapper<VanishArmor> {
 
@@ -31,7 +32,7 @@ public class ServerWindowItems extends PacketWrapper<VanishArmor> {
 
         if (!config.isHideSelf()) return;
         Player player = event.getPlayer();
-        if (!getPlugin().hasPermission(player, "vanish")) return;
+        if (!plugin.hasPermission(player, "vanish")) return;
         if (!manager.get(player.getUniqueId())) return;
 
         WrapperPlayServerWindowItems packet = new WrapperPlayServerWindowItems(event);

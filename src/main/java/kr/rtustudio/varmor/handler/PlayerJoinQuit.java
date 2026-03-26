@@ -21,17 +21,17 @@ public class PlayerJoinQuit extends RSListener<VanishArmor> {
     }
 
     @EventHandler
-    public void onJoin(PlayerJoinEvent e) {
+    private void onJoin(PlayerJoinEvent e) {
         manager.addPlayer(e.getPlayer().getUniqueId());
     }
 
     @EventHandler(priority = EventPriority.MONITOR)
-    public void onPostJoin(PlayerSpawnLocationEvent e) {
-        CraftScheduler.delay(getPlugin(), e.getPlayer()::updateInventory, 1, true);
+    private void onPostJoin(PlayerSpawnLocationEvent e) {
+        CraftScheduler.delay(plugin, e.getPlayer()::updateInventory, 1, true);
     }
 
     @EventHandler
-    public void onQuit(PlayerQuitEvent e) {
+    private void onQuit(PlayerQuitEvent e) {
         manager.removePlayer(e.getPlayer().getUniqueId());
     }
 

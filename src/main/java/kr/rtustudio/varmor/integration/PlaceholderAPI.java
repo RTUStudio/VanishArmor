@@ -1,4 +1,4 @@
-package kr.rtustudio.varmor.dependency;
+package kr.rtustudio.varmor.integration;
 
 import kr.rtustudio.framework.bukkit.api.integration.wrapper.PlaceholderArgs;
 import kr.rtustudio.framework.bukkit.api.integration.wrapper.PlaceholderWrapper;

@@ -26,21 +26,21 @@ public class PlayerItemDamage extends RSListener<VanishArmor> {
     }
 
     @EventHandler(priority = EventPriority.MONITOR)
-    public void onArmorDamage(PlayerItemDamageEvent e) {
+    private void onArmorDamage(PlayerItemDamageEvent e) {
         Player player = e.getPlayer();
         if (!manager.get(player.getUniqueId())) return;
-        if (!getPlugin().hasPermission(player, "vanish")) return;
+        if (!plugin.hasPermission(player, "vanish")) return;
         ItemStack itemStack = e.getItem();
-        if (check(player, itemStack)) CraftScheduler.delay(getPlugin(), player::updateInventory, 1, true);
+        if (check(player, itemStack)) CraftScheduler.delay(plugin, player::updateInventory, 1, true);
     }
 
     @EventHandler(priority = EventPriority.MONITOR)
-    public void onArmorMend(PlayerItemMendEvent e) {
+    private void onArmorMend(PlayerItemMendEvent e) {
         Player player = e.getPlayer();
         if (!manager.get(player.getUniqueId())) return;
-        if (!getPlugin().hasPermission(player, "vanish")) return;
+        if (!plugin.hasPermission(player, "vanish")) return;
         ItemStack itemStack = e.getItem();
-        if (check(player, itemStack)) CraftScheduler.delay(getPlugin(), player::updateInventory, 1, true);
+        if (check(player, itemStack)) CraftScheduler.delay(plugin, player::updateInventory, 1, true);
     }
 
     private boolean check(Player player, ItemStack itemStack) {

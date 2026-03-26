@@ -11,7 +11,6 @@ import kr.rtustudio.framework.bukkit.api.integration.wrapper.PacketWrapper;
 import kr.rtustudio.varmor.VanishArmor;
 import kr.rtustudio.varmor.configuration.VanishConfig;
 import kr.rtustudio.varmor.manager.ToggleManager;
-import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
@@ -42,17 +41,20 @@ public class ServerEntityEquipment extends PacketWrapper<VanishArmor> {
         Player target = getPlayer(targetId);
         if (target == null) return;
 
+        boolean stripped = false;
+        
         if (config.isHideOther()) {
             Player viewer = event.getPlayer();
-            if (!manager.get(viewer.getUniqueId())) return;
-            if (!getPlugin().hasPermission(viewer, "vanish")) return;
-            stripEquipment(packet);
+            if (manager.get(viewer.getUniqueId()) && plugin.hasPermission(viewer, "vanish")) {
+                stripEquipment(packet);
+                stripped = true;
+            }
         }
 
-        if (config.isHideFromOther()) {
-            if (!manager.get(target.getUniqueId())) return;
-            if (!getPlugin().hasPermission(target, "vanish")) return;
-            stripEquipment(packet);
+        if (!stripped && config.isHideFromOther()) {
+            if (manager.get(target.getUniqueId()) && plugin.hasPermission(target, "vanish")) {
+                stripEquipment(packet);
+            }
         }
     }
 

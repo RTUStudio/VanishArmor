@@ -3,7 +3,6 @@ package kr.rtustudio.varmor.protocol;
 import com.github.retrooper.packetevents.event.PacketReceiveEvent;
 import com.github.retrooper.packetevents.protocol.packettype.PacketType;
 import com.github.retrooper.packetevents.wrapper.play.client.WrapperPlayClientClickWindow;
-import java.util.List;
 import kr.rtustudio.framework.bukkit.api.integration.wrapper.PacketWrapper;
 import kr.rtustudio.framework.bukkit.api.scheduler.CraftScheduler;
 import kr.rtustudio.varmor.VanishArmor;
@@ -12,7 +11,11 @@ import kr.rtustudio.varmor.manager.ToggleManager;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryType;
 
+import java.util.List;
+
 public class ClientClickWindow extends PacketWrapper<VanishArmor> {
+
+    private static final List<Integer> ARMOR_SLOTS = List.of(5, 6, 7, 8);
 
     private final VanishConfig config;
     private final ToggleManager manager;
@@ -29,15 +32,14 @@ public class ClientClickWindow extends PacketWrapper<VanishArmor> {
 
         if (!config.isHideSelf()) return;
         Player player = event.getPlayer();
-        if (!getPlugin().hasPermission(player, "vanish")) return;
+        if (!plugin.hasPermission(player, "vanish")) return;
         if (!manager.get(player.getUniqueId())) return;
 
         WrapperPlayClientClickWindow packet = new WrapperPlayClientClickWindow(event);
-        if (player.getOpenInventory().getType() == InventoryType.CRAFTING) {
-            List<Integer> slots = List.of(5, 6, 7, 8);
-            if (slots.contains(packet.getSlot())) {
-                CraftScheduler.delay(getPlugin(), player::updateInventory, 1, true);
-            }
+        if (player.getOpenInventory().getType() != InventoryType.CRAFTING) return;
+        
+        if (ARMOR_SLOTS.contains(packet.getSlot())) {
+            CraftScheduler.delay(plugin, player::updateInventory, 1, true);
         }
     }
 }

@@ -1,14 +1,14 @@
 package kr.rtustudio.varmor;
 
-import kr.rtustudio.varmor.command.MainCommand;
-import kr.rtustudio.varmor.configuration.VanishConfig;
-import kr.rtustudio.varmor.dependency.PlaceholderAPI;
-import kr.rtustudio.varmor.handler.PlayerItemDamage;
-import kr.rtustudio.varmor.handler.PlayerJoinQuit;
-import kr.rtustudio.varmor.manager.ToggleManager;
 import io.papermc.paper.inventory.ItemRarity;
 import kr.rtustudio.configurate.model.ConfigPath;
 import kr.rtustudio.framework.bukkit.api.RSPlugin;
+import kr.rtustudio.varmor.command.MainCommand;
+import kr.rtustudio.varmor.configuration.VanishConfig;
+import kr.rtustudio.varmor.handler.PlayerItemDamage;
+import kr.rtustudio.varmor.handler.PlayerJoinQuit;
+import kr.rtustudio.varmor.integration.PlaceholderAPI;
+import kr.rtustudio.varmor.manager.ToggleManager;
 import kr.rtustudio.varmor.protocol.ClientClickWindow;
 import kr.rtustudio.varmor.protocol.ServerEntityEquipment;
 import kr.rtustudio.varmor.protocol.ServerWindowItems;
@@ -30,12 +30,12 @@ public class VanishArmor extends RSPlugin {
     private ToggleManager toggleManager;
 
     @Override
-    public void load() {
+    protected void load() {
         instance = this;
     }
 
     @Override
-    public void enable() {
+    protected void enable() {
         registerStorage("Toggle");
 
         vanishConfig = registerConfiguration(VanishConfig.class, ConfigPath.of("Vanish"));
