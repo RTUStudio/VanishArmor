@@ -1,4 +1,4 @@
-package kr.rtustudio.varmor.listener;
+package kr.rtustudio.varmor.handler;
 
 import kr.rtustudio.framework.bukkit.api.listener.RSListener;
 import kr.rtustudio.framework.bukkit.api.scheduler.CraftScheduler;

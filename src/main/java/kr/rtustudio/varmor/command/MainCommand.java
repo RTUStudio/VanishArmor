@@ -8,7 +8,7 @@ import com.github.retrooper.packetevents.protocol.player.EquipmentSlot;
 import com.github.retrooper.packetevents.wrapper.play.server.WrapperPlayServerEntityEquipment;
 import io.github.retrooper.packetevents.util.SpigotConversionUtil;
 import kr.rtustudio.framework.bukkit.api.command.RSCommand;
-import kr.rtustudio.framework.bukkit.api.command.RSCommandData;
+import kr.rtustudio.framework.bukkit.api.command.CommandArgs;
 import kr.rtustudio.framework.bukkit.api.scheduler.CraftScheduler;
 import kr.rtustudio.varmor.VanishArmor;
 import kr.rtustudio.varmor.configuration.VanishConfig;
@@ -40,7 +40,7 @@ public class MainCommand extends RSCommand<VanishArmor> {
     }
 
     @Override
-    public Result execute(RSCommandData data) {
+    public Result execute(CommandArgs data) {
         if (!data.length(0)) return Result.WRONG_USAGE;
         Player player = player();
         if (player == null) return Result.ONLY_PLAYER;
@@ -49,10 +49,10 @@ public class MainCommand extends RSCommand<VanishArmor> {
         boolean isVanished = toggleManager.get(player.getUniqueId());
         if (isVanished) {
             toggleManager.off(player.getUniqueId());
-            chat().announce(audience(), message().get(player(), "disable"));
+            notifier.announce(message.get(player(), "disable"));
         } else {
             toggleManager.on(player.getUniqueId());
-            chat().announce(audience(), message().get(player(), "enable"));
+            notifier.announce(message.get(player(), "enable"));
         }
         CraftScheduler.delay(getPlugin(), player::updateInventory, 1, true);
 
@@ -77,7 +77,7 @@ public class MainCommand extends RSCommand<VanishArmor> {
     }
 
     @Override
-    public void reload(RSCommandData data) {
+    public void reload(CommandArgs data) {
         getPlugin().reloadConfiguration(VanishConfig.class);
     }
 

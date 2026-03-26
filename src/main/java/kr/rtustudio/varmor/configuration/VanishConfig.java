@@ -1,7 +1,7 @@
 package kr.rtustudio.varmor.configuration;
 
 import kr.rtustudio.configurate.objectmapping.meta.Comment;
-import kr.rtustudio.framework.bukkit.api.configuration.ConfigurationPart;
+import kr.rtustudio.configurate.model.ConfigurationPart;
 import lombok.Getter;
 
 @Getter
